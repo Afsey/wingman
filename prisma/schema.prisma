@@ -1,0 +1,152 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          String   @id @default(uuid())
+  email       String   @unique
+  password    String
+  name        String
+  phone       String   @unique
+  dob         DateTime?
+  timezone    String   @default("Asia/Kolkata")
+  profilePic  String?
+  role              String   @default("user") // "admin" or "user"
+  googleAccessToken String?
+  googleRefreshToken String?
+  googleTokenExpiry BigInt?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  userName  String
+  action    String
+  details   String?
+  createdAt DateTime @default(now())
+}
+
+model Client {
+  id           String    @id @default(uuid())
+  slNo         Int?
+  date         DateTime?
+  name         String
+  number       String?
+  whichService String?
+  enquiry      String?
+  status       String    @default("Contacted")
+  paid         Boolean   @default(false)
+  workDetails  String?
+  amount       String?
+  websiteLinks String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Work {
+  id         String   @id @default(uuid())
+  title      String
+  clientName String
+  status     String   @default("pending")
+  priority   String   @default("medium")
+  dueDate    DateTime?
+  details    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Task {
+  id        String   @id @default(uuid())
+  title     String
+  status    String   @default("todo")
+  priority  String   @default("medium")
+  dueDate   DateTime?
+  details   String?
+  userId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Meeting {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  startTime   DateTime
+  endTime     DateTime
+  type        String   @default("meeting")
+  status      String   @default("scheduled")
+  reminder    String?
+  location    String?
+  userId      String?
+  googleEventId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Company {
+  id            String    @id @default(uuid())
+  name          String
+  industry      String
+  myRole        String?
+  interviewDate DateTime?
+  status        String    @default("Collab")
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Note {
+  id        String   @id @default(uuid())
+  title     String
+  content   String?
+  category  String   @default("study")
+  color     String   @default("#1e1e2e")
+  isPinned  Boolean  @default(false)
+  tags      String?
+  userId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SocialAccount {
+  id        String   @id @default(uuid())
+  platform  String   // e.g., Twitter, LinkedIn, Instagram
+  url       String?
+  username  String?
+  password  String?  // Storing simple text for quick access in your personal dashboard
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SocialPost {
+  id           String    @id @default(uuid())
+  title        String
+  content      String?
+  platform     String    // e.g., Twitter, LinkedIn, Instagram
+  status       String    @default("Draft") // Draft, Scheduled, Published
+  scheduledFor DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Attachment {
+  id           String   @id @default(uuid())
+  filename     String
+  originalName String
+  mimeType     String
+  size         Int
+  url          String
+  category     String   @default("other")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

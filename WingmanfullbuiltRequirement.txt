@@ -1,0 +1,72 @@
+Hi , Here the full built Requirement of Project Wingman .
+Wingman is that name suggest , A platform where my day to day activities listed . With AI integrated named ECHO (currently planed to integrate gemini free api key )
+
+The Wingman is an problem solver to me . 
+The challenges faced is 
+1. Task are listed in notion 
+2. Mails 
+3. Job tracking 
+4. meetings and interview missed
+5. Client management
+6. Work status
+7. Work update
+
+Like i want to unify everything in one platform . So i dont get confusion . 
+
+I will explain how i want my wingman is :- 
+
+A. On the First Screen appear after clicking the link When Link clicks.
+
+-> A Screen Appear with a greeting (Dynamic Good Morning , Good evening , Good Afternoon like that , it is calculated in Indian standard time ) 
+-> under greeting Welcome Back 'Name' (For the first time user set the name as " Buddy " , After login in Dashboard Welcome Back 'Legged persons name '
+-> The top right corner - a button for Theme select - Dark theme , white theme and default theme . 
+-> Display real time of India , UAE, UK and plus button we can customize the world clock by adding total 5 world clocks . integrate or code manually to        	customize the world clock . 
+-> Display Daily Motivation quotes on screen refresh in 3 hour gap . 
+-> 1 button Login button ( no signup button - because admin can only create users in admin dashboard only ) to recognize admin - use this mail 
+mail : marketingwithafsal@gmail.com 
+password : Afsal@1323wingman
+Name: Afsey
+Phone Number : +91 8078873963
+this is the admin credential use this as inbuilt no signup needed . 
+
+-> When click on login button - >> Model pop up Appear -> Wingman asks - Who are you ? - below that place to fill username / mail box , password box , phone 	number - below Login button . 
+-> The loading should have a animation like person walks continually and a buffering animation in circle . 
+
+
+B. When Admin/User login 
+-> same Dashboard difference is Admin have access to see the other users and their activity history and Admin can create new user (only admin can create new 	user and admin give user credentials to user to login ) 
+-> on the top left Upper ->> Wingman logo and name below that - Welcome back 'name' (name is admin/user name )
+-> Top right corner ->> for profile selection / view / edit 
+-> user profile / admin profile ->> 1. profile picture , 2. username , 3.password (change password option below password box), 4. DOB, 5.phone number 	6.Timezone selection and can change 
+-> User profile / admin profile ->> Can add / edit profile picture , Change password , Not able to change phone number and username/mail , can change DOB , 
+-> Save Button and reset button in user profile / admin profile
+-> On the top right corner left to user profile icon a theme selection icon ->> Can customize different themes - not complex but colour theme .
+-> colour theme options ->> Dark , White , System default , Blue , Red , yellow , green , orange, navy blue , Dark green , violet, rose , Golden , Funky , maroon , Black and white , Black and Blue , Black and yellow , black and green , Black and maroon , Black and violet , black and orange , black and rose 
+, White and Blue , White and yellow , White and green , White and maroon , White and violet , White and orange , White and rose ..... also some other Colour combo you like . 
+-> On the top right corner left to user profile to see Activity/history icon ->> when clicks a drop down/ tab appear with all history/activity on all the time with date , time , user - when clicks the history - it redirects into the Activity page where in-depth activity details can see.  
+-> On the Top center ->> Time is listed based on the user profile time zone. only can change the time in user profile . 
+
+C.Interface
+-> On the left side list of pages in bubble shape is listed . the default page Dashboard where all details can be seen in to see in depth we have to click details in each box of information . i will explain in detail
+-> All pages in left side ->> 1. Dashboard , 2. Tasks , 3.Meetings / Interview , 4. Clients , 5.Works , 6.list of Companies , 7. Social Media , 8. Marketing News 9. Study Note , 10. Dream , 11. Life , 12.Attachments, 13.Freelance, 14.Wingman Users,... Only List first 6 then give a plus button - when clicks that plus button shows list of pages that can add to the left side list . 
+
+-> Dashboard ->> Explanation - Each Model for each page like , A list of task to do in today with priority , then next model box interviews today / meetings today and tomorrow , next model box Works pending . 
+-> Tasks ->> Goal is to Add new task button and list of tasks .  (add you ideas also)
+-> Meetings - Integrate Google Calender and Arrange meetings and interviews , a add a button to add meetings manually will reflect in google calender and in our CRM . (add you ideas also)
+-> Clients ->> list of Clients and Details , Add a button to add clients and delete a client , change a client details OR just like google Sheet function . also a download button to download client data in the format of execel/ sheet format and pdf format .(add you ideas also)
+-> Works ->> Details of works , same as Clients page (add you ideas also)
+-> Left bottom corner ->> Admin Center - only my CRM shows this page , Admin Center and Settings . Where manage connected thirdparty apps , API integration for future AI , Like that include all you think necessary.(add you ideas also)
+
+D.Other
+-> Add Personal Assistant integration ready for future - AI integration to Automate inside functions . likely Gemini free API key or Grog . Future ready.
+-> Personal Assistant name is ECHO and a Button named ECHO is Placed you like where . (add you ideas also)
+-> Now for user other than admin ->> All functions same only restricted is They cant see the page 'Wingman Users', 'admin center',and no other settings for API integration but can manage their own connected thirdparty app. (dont know how this will work usually how admin and user functions works make it like that)
+-> Optimize it for App/IOS /and tablet . No function change , No  bugs . Should optimized for all OS and screen size. 
+-> Database should keep no data must be loss.
+-> At the Weekend - their should  be a File includes all datas in  the CRM ready to upload to the google drive and keep it system ( Possible future ECHO automation ) for all   	Users 
+-> Can Be installed as Web App not only website. like there is an option to Download and install as app in above browser . you get that i say !.
+-> Install Necessary plugins , languages , third party connectors if necessary (before list them and ask for permission to install also give options and alternatives.
+-> Future goal is to deploy into vercel or cloudfare so develop keep in mind that 
+-> each update give me localhost link before publish into git 
+-> develop each section first and give localhost to verify . eg : like develope First A then B,C and D ......
+-> Ask Questions 

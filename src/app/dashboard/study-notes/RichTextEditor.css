@@ -1,0 +1,140 @@
+.rte-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.rte-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rte-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.rte-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.rte-btn.is-active {
+  background: rgba(129, 140, 248, 0.2);
+  color: #818cf8;
+}
+
+.rte-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.rte-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 4px;
+}
+
+.rte-content {
+  padding: 16px;
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  outline: none;
+}
+
+/* TipTap ProseMirror specific styles */
+.ProseMirror {
+  outline: none;
+}
+
+.ProseMirror p {
+  margin: 0 0 1em 0;
+}
+
+.ProseMirror p:last-child {
+  margin-bottom: 0;
+}
+
+.ProseMirror h1 {
+  font-size: 1.8em;
+  margin: 1em 0 0.5em 0;
+  font-weight: 600;
+  color: #fff;
+}
+
+.ProseMirror h2 {
+  font-size: 1.4em;
+  margin: 1em 0 0.5em 0;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.ProseMirror ul {
+  padding-left: 1.5em;
+  margin: 0 0 1em 0;
+  list-style-type: disc;
+}
+
+.ProseMirror ol {
+  padding-left: 1.5em;
+  margin: 0 0 1em 0;
+  list-style-type: decimal;
+}
+
+.ProseMirror li {
+  margin-bottom: 0.25em;
+}
+
+.ProseMirror blockquote {
+  border-left: 3px solid #818cf8;
+  margin: 1em 0;
+  padding-left: 1em;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  background: rgba(129, 140, 248, 0.05);
+  padding: 10px 10px 10px 16px;
+  border-radius: 0 4px 4px 0;
+}
+
+.ProseMirror a {
+  color: #818cf8;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ProseMirror a:hover {
+  text-decoration: underline;
+}
+
+/* Placeholder styling (if using placeholder extension, though StarterKit doesn't have it by default. 
+   We will keep it simple for now, standard empty styling) */
+.ProseMirror p.is-editor-empty:first-child::before {
+  color: rgba(255, 255, 255, 0.3);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}

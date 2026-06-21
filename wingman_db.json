@@ -1,0 +1,40 @@
+{
+  "users": [
+    {
+      "id": "admin-default-uuid",
+      "email": "marketingwithafsal@gmail.com",
+      "passwordHash": "b37c38e4026c14fe49d113e7d2ab1d4300eddb55069155c3e6d09e4a3e4202b3bc0c6cb0dc3fb59c5892fdf1d570ee35f9b10141be9cf27ae1bc7821807dec96",
+      "name": "Afsey",
+      "phone": "+91 8078873963",
+      "dob": "1995-01-01",
+      "timezone": "Asia/Kolkata",
+      "profilePic": null,
+      "role": "admin",
+      "createdAt": "2026-06-16T21:11:01.563Z",
+      "updatedAt": "2026-06-16T21:11:01.564Z"
+    }
+  ],
+  "logs": [
+    {
+      "userId": "admin-default-uuid",
+      "userName": "Afsey",
+      "action": "LOGIN",
+      "details": "User logged in from login portal. Timezone: Asia/Kolkata",
+      "id": "b2e9bc62-9c04-4c30-8821-4c03b97508e9",
+      "createdAt": "2026-06-16T21:28:30.789Z"
+    },
+    {
+      "userId": "admin-default-uuid",
+      "userName": "Afsey",
+      "action": "LOGIN",
+      "details": "User logged in from login portal. Timezone: Asia/Kolkata",
+      "id": "950cdfcf-51a4-4207-b6c3-ccb49a72cf9f",
+      "createdAt": "2026-06-16T22:37:44.365Z"
+    }
+  ],
+  "clients": [],
+  "works": [],
+  "tasks": [],
+  "meetings": [],
+  "companies": []
+}
