@@ -16,10 +16,13 @@ import {
   Globe,
   Quote
 } from 'lucide-react';
-import LoginModal from './components/LoginModal';
+import dynamic from 'next/dynamic';
 import GreetingIllustration from './components/GreetingIllustration';
 import AnalogClock from './components/AnalogClock';
 import WeatherWidget from './components/WeatherWidget';
+import WorldClockList from './components/WorldClockList';
+
+const LoginModal = dynamic(() => import('./components/LoginModal'), { ssr: false });
 import { getQuoteForTime, Quote as QuoteType } from '@/lib/quotes';
 
 // Timezone mapping for world clocks
@@ -46,6 +49,74 @@ const AVAILABLE_TIMEZONES = [
   { city: 'Zurich', timezone: 'Europe/Zurich', label: 'CET/CEST' },
   { city: 'Cape Town', timezone: 'Africa/Johannesburg', label: 'SAST' },
   { city: 'Seoul', timezone: 'Asia/Seoul', label: 'KST' }
+];
+
+const MORNING_QUOTES = [
+  "A fresh start. Let's make today count.",
+  "Rise and shine. Time to build.",
+  "New day, new opportunities.",
+  "The morning sets the tone for the day.",
+  "Seize the day and embrace the challenges.",
+  "Wake up with determination. Go to bed with satisfaction.",
+  "Every morning is a blank canvas.",
+  "Let today be the day you take a step forward.",
+  "Your goals are waiting. Let's get to work.",
+  "Breathe in the new day. Exhale yesterday.",
+  "Sun's up, time to level up.",
+  "A focused morning leads to a productive day.",
+  "Today is full of endless possibilities.",
+  "Start strong, stay consistent."
+];
+
+const AFTERNOON_QUOTES = [
+  "Halfway there. Keep the momentum going.",
+  "Stay sharp. The day isn't over yet.",
+  "Fuel your focus and power through.",
+  "Afternoon push! Let's finish what we started.",
+  "Keep up the good work. You're doing great.",
+  "Don't stop now, you're on a roll.",
+  "Maintain your rhythm. The finish line is near.",
+  "Recharge and tackle the rest of the day.",
+  "A steady pace wins the race.",
+  "Stay resilient, keep pushing forward.",
+  "Focus on progress, not perfection.",
+  "You're halfway through. Make it count.",
+  "Keep your eyes on the prize.",
+  "Harness your afternoon energy."
+];
+
+const EVENING_QUOTES = [
+  "Winding down. Reflect on today's wins.",
+  "The day is done. Time to relax and reflect.",
+  "Evening calm. Prepare for tomorrow.",
+  "A good day's work deserves a restful evening.",
+  "Take a moment to appreciate your progress today.",
+  "Unwind and let go of the day's stress.",
+  "Celebrate the small victories of today.",
+  "Transition from doing to being.",
+  "Clear your mind, find your peace.",
+  "Reflect on what you learned today.",
+  "The evening brings closure and calm.",
+  "Rest up. Tomorrow is a new adventure.",
+  "Leave today's worries behind you.",
+  "Embrace the quiet of the evening."
+];
+
+const NIGHT_QUOTES = [
+  "Another day completed. Rest and recharge.",
+  "Time to power down. Sleep well.",
+  "The stars are out. Time for deep rest.",
+  "A quiet night for a clear tomorrow.",
+  "Let your body and mind rejuvenate.",
+  "Sleep is the best meditation.",
+  "Close your eyes and dream big.",
+  "Rest is productive. Embrace it.",
+  "Tomorrow needs your energy. Sleep now.",
+  "Let the silence of the night soothe you.",
+  "Drift into restful sleep.",
+  "A peaceful night leads to a powerful morning.",
+  "Recharge your batteries for a new dawn.",
+  "The night is for resting and dreaming."
 ];
 
 const THEME_OPTIONS = [
@@ -95,8 +166,7 @@ export default function LandingPage() {
   const [showThemeMenu, setShowThemeMenu] = useState(false);
   const themeMenuRef = useRef<HTMLDivElement>(null);
 
-  // Time state
-  const [time, setTime] = useState(new Date());
+  // (Time state and interval have been moved to WorldClockList for performance)
 
   // Motivation Quote state
   const [quote, setQuote] = useState<QuoteType>({ text: '', author: '' });
@@ -120,26 +190,23 @@ export default function LandingPage() {
     const istTime = new Date(utc + (3600000 * 5.5));
     const hours = istTime.getHours();
 
+    const epochDays = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+    const dayIndex = epochDays % 14;
+
     if (hours >= 5 && hours < 12) {
       setGreeting('Good Morning');
-      setSubGreeting("A fresh start. Let's make today count.");
+      setSubGreeting(MORNING_QUOTES[dayIndex]);
     } else if (hours >= 12 && hours < 17) {
       setGreeting('Good Afternoon');
-      setSubGreeting("Halfway there. Keep the momentum going.");
+      setSubGreeting(AFTERNOON_QUOTES[dayIndex]);
     } else if (hours >= 17 && hours < 22) {
       setGreeting('Good Evening');
-      setSubGreeting("Winding down. Reflect on today's wins.");
+      setSubGreeting(EVENING_QUOTES[dayIndex]);
     } else {
       setGreeting('Good Night');
-      setSubGreeting("Another day completed. Rest and recharge.");
+      setSubGreeting(NIGHT_QUOTES[dayIndex]);
     }
   };
-
-  // Real-time ticking clock
-  useEffect(() => {
-    const timer = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   // Initialization: check local storage and load service worker
   useEffect(() => {
@@ -211,41 +278,16 @@ export default function LandingPage() {
   const handleRefreshQuote = () => {
     setIsQuoteRefreshing(true);
     setTimeout(() => {
-      localStorage.removeItem('wingman_cached_quote');
-      localStorage.removeItem('wingman_cached_quote_time');
-      setQuote(getQuoteForTime());
-      setIsQuoteRefreshing(false);
+      // Manually pick a random quote to override the daily one
+      const randomIndex = Math.floor(Math.random() * 25); // Currently 25 quotes in lib
+      import('@/lib/quotes').then(module => {
+        setQuote(module.MOTIVATIONAL_QUOTES[randomIndex]);
+        setIsQuoteRefreshing(false);
+      });
     }, 600);
   };
 
-  // Clock time helper
-  const formatTimeForZone = (timezone: string) => {
-    if (!mounted) return '--:--:--';
-    try {
-      return time.toLocaleTimeString('en-US', {
-        timeZone: timezone,
-        hour12: true,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      });
-    } catch (e) {
-      return '--:--:--';
-    }
-  };
-
-  // Clock date helper
-  const formatDateForZone = (timezone: string) => {
-    if (!mounted) return '---';
-    try {
-      const month = time.toLocaleString('en-US', { timeZone: timezone, month: 'long' });
-      const day = time.toLocaleString('en-US', { timeZone: timezone, day: 'numeric' });
-      const weekday = time.toLocaleString('en-US', { timeZone: timezone, weekday: 'short' });
-      return `${month} ${day} , ${weekday}`;
-    } catch (e) {
-      return '---';
-    }
-  };
+  // Clock time helpers removed from here, now encapsulated in WorldClockList
 
   // Add Custom Clock
   const handleAddClock = (timezoneObj: typeof AVAILABLE_TIMEZONES[0]) => {
@@ -363,7 +405,6 @@ export default function LandingPage() {
       </header>
 
       {/* Main Side-by-Side Content Layout */}
-      {/* Main Side-by-Side Content Layout */}
       <main className="main-content-layout">
         
         {/* Left Column: Greeting, Welcome & Call to Action */}
@@ -412,65 +453,11 @@ export default function LandingPage() {
         <div className="hero-right-col">
           
           {/* World Clocks Card */}
-          <div className="world-clocks-card glass-panel glow-card">
-            <div className="card-header">
-              <div className="card-title-group">
-                <div className="card-icon-badge">
-                  <Globe style={{ color: 'var(--accent-color)' }} size={16} />
-                </div>
-                <h3 className="card-title">World Clocks</h3>
-              </div>
-              
-              {worldClocks.length < 5 && (
-                <button 
-                  onClick={() => setShowAddClockModal(true)}
-                  className="btn-add-clock"
-                  title="Add Clock"
-                >
-                  <Plus size={14} />
-                  <span>Add</span>
-                </button>
-              )}
-            </div>
-
-            {/* Clocks Row (Stacked vertically) */}
-            <div className="clocks-grid">
-              {worldClocks.map((c) => (
-                <div key={c.id} className="clock-item">
-                  {/* Delete button (show on any clock except India) */}
-                  {c.timezone !== 'Asia/Kolkata' && (
-                    <button
-                      onClick={(e) => handleRemoveClock(c.id, e)}
-                      className="clock-delete-btn"
-                      title="Remove Clock"
-                    >
-                      <Trash2 size={12} />
-                    </button>
-                  )}
-                  
-                  {/* Left Half: Analog Clock */}
-                  <div className="clock-item-left">
-                    <AnalogClock timezone={c.timezone} />
-                  </div>
-                  
-                  {/* Center: Thin divider line */}
-                  <div className="clock-item-divider"></div>
-                  
-                  {/* Right Half: Timezone & Ticking Time */}
-                  <div className="clock-item-right">
-                    <div className="clock-label">{c.label}</div>
-                    <div className="clock-city">{c.city}</div>
-                    <div className="clock-time">
-                      {formatTimeForZone(c.timezone)}
-                    </div>
-                    <div className="clock-date">
-                      {formatDateForZone(c.timezone)}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <WorldClockList 
+            worldClocks={worldClocks} 
+            handleRemoveClock={handleRemoveClock} 
+            setShowAddClockModal={setShowAddClockModal} 
+          />
 
           {/* Motivation Quote Card */}
           <div className="quote-card glass-panel glow-card">

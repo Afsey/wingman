@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface Blob {
   x: number;
@@ -17,7 +17,7 @@ interface TrailPoint {
   age: number;
 }
 
-export default function FluidBackground() {
+const FluidBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -238,4 +238,6 @@ export default function FluidBackground() {
       }}
     />
   );
-}
+};
+
+export default React.memo(FluidBackground);

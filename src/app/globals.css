@@ -1985,3 +1985,375 @@ a:hover {
   margin-top: 4px;
   font-weight: 500;
 }
+
+/* Login Modal Fixed Header */
+.login-modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.login-modal-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+.login-modal-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* From Uiverse.io by StealthWorm */ 
+.loader {
+  display: flex;
+  position: relative;
+  justify-items: center;
+  align-items: center;
+  gap: 1rem;
+  height: 55px;
+  width: 200px;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  position: relative;
+  align-items: center;
+}
+
+.carousel {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  transform-origin: center;
+  animation-delay: 2s;
+}
+
+.loader .container:nth-child(3) {
+  justify-content: flex-start;
+  justify-items: flex-start;
+  animation: scroll-up 4s infinite ease-in-out;
+  animation-delay: 3s;
+}
+
+.loader .container:nth-child(2) {
+  justify-content: flex-end;
+  justify-items: flex-end;
+  animation: scroll-down 4s infinite ease-in-out;
+  animation-delay: 3s;
+}
+
+.loader .container:nth-child(1) {
+  justify-content: flex-end;
+  justify-items: flex-end;
+  animation: scroll-down 3s infinite ease-in-out;
+  animation-delay: 3s;
+}
+
+.love {
+  background: red;
+  display: flex;
+  width: 30px;
+  height: 30px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  left: 8px;
+  margin: 0.8rem 4px;
+  transform: rotate(45deg);
+  animation-delay: 2s;
+}
+
+.love::before, .love::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: red;
+}
+
+.love::before {
+  left: -16px;
+}
+
+.love::after {
+  top: -16px;
+}
+
+.death {
+  display: flex;
+  width: 100%;
+  height: 55px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  animation: rotation 3s infinite ease-in-out;
+  animation-delay: 1s;
+}
+
+.death:after {
+  content: '';
+  height: 63px;
+  position: absolute;
+  border-left: 12px solid red;
+  transform: rotate(45deg);
+  border-radius: 8px;
+  top: -4px;
+}
+
+.death:before {
+  content: '';
+  height: 60px;
+  position: absolute;
+  border-left: 12px solid red;
+  transform: rotate(-45deg);
+}
+
+.loader:hover {
+  animation: none;
+}
+
+.robots {
+  display: flex;
+  width: 100%;
+  height: 55px;
+  justify-content: space-between;
+  background-color: #ff0000;
+  border-radius: 0 8px 8px;
+  padding: 8px;
+  animation-delay: 5s;
+}
+
+.robots::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  border-radius: 50%;
+  animation-delay: 2s;
+  animation: blink 0.5s 2 forwards;
+}
+
+.robots::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  border-radius: 50%;
+  animation-delay: 2s;
+  animation: blink 0.5s 2 forwards;
+}
+
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  30% {
+    transform: translateY(-150%);
+    filter: blur(10px);
+  }
+
+  60% {
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@keyframes scroll-down {
+  0% {
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  30% {
+    transform: translateY(150%);
+    filter: blur(10px);
+  }
+
+  60% {
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@keyframes rotation {
+  20%, 100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes blink {
+  0% {
+    height: 0;
+  }
+
+  20% {
+    height: 12px;
+  }
+
+  100% {
+    height: 12px;
+  }
+}
+
+/* Cyberpunk Neon Theme */
+[data-theme="cyberpunk"] {
+  --bg-primary: #0a0a0c;
+  --bg-secondary: #13131a;
+  --text-primary: #f0f0ff;
+  --text-secondary: #ff0055;
+  --border-color: rgba(0, 255, 255, 0.2);
+  --accent-color: #00ffff;
+  --accent-hover: #ff0055;
+  --glass-bg: rgba(19, 19, 26, 0.85);
+  --glass-border: rgba(0, 255, 255, 0.15);
+  --shadow: 0 8px 32px 0 rgba(0, 255, 255, 0.3);
+  --glow-color: rgba(0, 255, 255, 0.5);
+}
+
+/* Emerald Glow Theme */
+[data-theme="emerald"] {
+  --bg-primary: #021a11;
+  --bg-secondary: #052e1f;
+  --text-primary: #ecfdf5;
+  --text-secondary: #6ee7b7;
+  --border-color: rgba(16, 185, 129, 0.25);
+  --accent-color: #10b981;
+  --accent-hover: #34d399;
+  --glass-bg: rgba(5, 46, 31, 0.8);
+  --glass-border: rgba(16, 185, 129, 0.2);
+  --shadow: 0 8px 32px 0 rgba(16, 185, 129, 0.3);
+  --glow-color: rgba(16, 185, 129, 0.4);
+}
+
+/* Soft Peach Theme */
+[data-theme="peach"] {
+  --bg-primary: #fdf4f0;
+  --bg-secondary: #ffffff;
+  --text-primary: #2d1b15;
+  --text-secondary: #e58b68;
+  --border-color: rgba(229, 139, 104, 0.2);
+  --accent-color: #f29a76;
+  --accent-hover: #f5b095;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(242, 154, 118, 0.2);
+  --shadow: 0 8px 32px 0 rgba(242, 154, 118, 0.15);
+  --glow-color: rgba(242, 154, 118, 0.3);
+}
+
+/* Midnight Sapphire Theme */
+[data-theme="sapphire"] {
+  --bg-primary: #010515;
+  --bg-secondary: #041030;
+  --text-primary: #e6f0ff;
+  --text-secondary: #5c8dff;
+  --border-color: rgba(59, 130, 246, 0.3);
+  --accent-color: #3b82f6;
+  --accent-hover: #60a5fa;
+  --glass-bg: rgba(4, 16, 48, 0.85);
+  --glass-border: rgba(59, 130, 246, 0.2);
+  --shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.35);
+  --glow-color: rgba(59, 130, 246, 0.4);
+}
+
+/* Ruby Red Theme */
+[data-theme="ruby"] {
+  --bg-primary: #150004;
+  --bg-secondary: #2c020d;
+  --text-primary: #ffe6eb;
+  --text-secondary: #ff4d6d;
+  --border-color: rgba(224, 21, 65, 0.25);
+  --accent-color: #e01541;
+  --accent-hover: #ff4d6d;
+  --glass-bg: rgba(44, 2, 13, 0.85);
+  --glass-border: rgba(224, 21, 65, 0.2);
+  --shadow: 0 8px 32px 0 rgba(224, 21, 65, 0.4);
+  --glow-color: rgba(224, 21, 65, 0.45);
+}
+
+/* Electric Purple Theme */
+[data-theme="electric-purple"] {
+  --bg-primary: #0a0014;
+  --bg-secondary: #160029;
+  --text-primary: #f6e6ff;
+  --text-secondary: #b34dff;
+  --border-color: rgba(144, 0, 255, 0.3);
+  --accent-color: #9000ff;
+  --accent-hover: #b34dff;
+  --glass-bg: rgba(22, 0, 41, 0.85);
+  --glass-border: rgba(144, 0, 255, 0.2);
+  --shadow: 0 8px 32px 0 rgba(144, 0, 255, 0.4);
+  --glow-color: rgba(144, 0, 255, 0.5);
+}
+
+/* Autumn Rust Theme */
+[data-theme="rust"] {
+  --bg-primary: #170d06;
+  --bg-secondary: #2b1709;
+  --text-primary: #ffebd6;
+  --text-secondary: #d97736;
+  --border-color: rgba(191, 91, 26, 0.25);
+  --accent-color: #bf5b1a;
+  --accent-hover: #d97736;
+  --glass-bg: rgba(43, 23, 9, 0.85);
+  --glass-border: rgba(191, 91, 26, 0.2);
+  --shadow: 0 8px 32px 0 rgba(191, 91, 26, 0.4);
+  --glow-color: rgba(191, 91, 26, 0.35);
+}
+
+/* Oceanic Teal Theme */
+[data-theme="teal"] {
+  --bg-primary: #021617;
+  --bg-secondary: #083336;
+  --text-primary: #ccfbf1;
+  --text-secondary: #2dd4bf;
+  --border-color: rgba(20, 184, 166, 0.25);
+  --accent-color: #14b8a6;
+  --accent-hover: #2dd4bf;
+  --glass-bg: rgba(8, 51, 54, 0.85);
+  --glass-border: rgba(20, 184, 166, 0.2);
+  --shadow: 0 8px 32px 0 rgba(20, 184, 166, 0.35);
+  --glow-color: rgba(20, 184, 166, 0.4);
+}
+
+/* Sunset Magenta Theme */
+[data-theme="magenta"] {
+  --bg-primary: #1a0314;
+  --bg-secondary: #320a28;
+  --text-primary: #fae8f5;
+  --text-secondary: #e84ebd;
+  --border-color: rgba(217, 39, 168, 0.25);
+  --accent-color: #d927a8;
+  --accent-hover: #e84ebd;
+  --glass-bg: rgba(50, 10, 40, 0.85);
+  --glass-border: rgba(217, 39, 168, 0.2);
+  --shadow: 0 8px 32px 0 rgba(217, 39, 168, 0.35);
+  --glow-color: rgba(217, 39, 168, 0.4);
+}
+
+/* Lunar Silver Theme */
+[data-theme="silver"] {
+  --bg-primary: #0c0c0c;
+  --bg-secondary: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #a3a3a3;
+  --border-color: rgba(163, 163, 163, 0.25);
+  --accent-color: #737373;
+  --accent-hover: #a3a3a3;
+  --glass-bg: rgba(26, 26, 26, 0.85);
+  --glass-border: rgba(163, 163, 163, 0.2);
+  --shadow: 0 8px 32px 0 rgba(163, 163, 163, 0.3);
+  --glow-color: rgba(163, 163, 163, 0.35);
+}

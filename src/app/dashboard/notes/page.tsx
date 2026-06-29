@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Pin, Trash2, Edit3, Plus, X, Check, BookOpen } from 'lucide-react';
 import RichTextEditor from './RichTextEditor';
-import './StudyNotes.css';
+import './Notes.css';
 
 interface Note {
   id: string;
@@ -38,10 +38,11 @@ function getAccentFromColor(hex: string): string {
   return map[hex] || '#818cf8';
 }
 
-export default function StudyNotesPage() {
+export default function NotesPage() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [viewNote, setViewNote] = useState<Note | null>(null);
   const [editNote, setEditNote] = useState<Note | null>(null);
   const [form, setForm] = useState({ title: '', content: '', color: '#1a1a2e', tags: '' });
   const [saving, setSaving] = useState(false);
@@ -142,7 +143,7 @@ export default function StudyNotesPage() {
             <BookOpen size={22} />
           </div>
           <div>
-            <h1 className="sn-title">Study Notes</h1>
+            <h1 className="sn-title">Notes</h1>
             <p className="sn-subtitle">Your personal knowledge garden — capture, organize, and grow.</p>
           </div>
         </div>
@@ -161,7 +162,7 @@ export default function StudyNotesPage() {
       ) : notes.length === 0 ? (
         <div className="sn-empty">
           <div className="sn-empty-icon">📝</div>
-          <h3>No study notes yet</h3>
+          <h3>No notes yet</h3>
           <p>Click "New Note" to capture your first idea.</p>
           <button className="sn-add-btn" onClick={openCreate}>
             <Plus size={16} /> Create First Note
@@ -180,9 +181,7 @@ export default function StudyNotesPage() {
                   <NoteCard
                     key={note.id}
                     note={note}
-                    onPin={togglePin}
-                    onEdit={openEdit}
-                    onDelete={id => setDeleteConfirm(id)}
+                    onClick={setViewNote}
                   />
                 ))}
               </div>
@@ -200,15 +199,61 @@ export default function StudyNotesPage() {
                   <NoteCard
                     key={note.id}
                     note={note}
-                    onPin={togglePin}
-                    onEdit={openEdit}
-                    onDelete={id => setDeleteConfirm(id)}
+                    onClick={setViewNote}
                   />
                 ))}
               </div>
             </div>
           )}
         </>
+      )}
+
+      {/* View Modal */}
+      {viewNote && (
+        <div className="sn-modal-backdrop" onClick={e => { if (e.target === e.currentTarget) setViewNote(null); }}>
+          <div className="sn-modal glass-panel view-modal">
+            <div className="sn-modal-header">
+              <div className="view-modal-title-area">
+                <h2>{viewNote.title}</h2>
+                <div className="sn-card-date" style={{ padding: '4px 0 0', border: 'none' }}>
+                  {new Date(viewNote.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                </div>
+              </div>
+              <button className="sn-modal-close" onClick={() => setViewNote(null)}><X size={20} /></button>
+            </div>
+            <div className="sn-modal-body view-modal-body">
+              {viewNote.tags && (
+                <div className="sn-card-tags" style={{ padding: '0 0 12px' }}>
+                  {viewNote.tags.split(',').map(t => t.trim()).filter(Boolean).map(tag => (
+                    <span key={tag} className="sn-tag" style={{ borderColor: getAccentFromColor(viewNote.color), color: getAccentFromColor(viewNote.color) }}>
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <div 
+                className="view-modal-content"
+                dangerouslySetInnerHTML={{ __html: viewNote.content || '' }} 
+              />
+            </div>
+            <div className="sn-modal-footer view-modal-footer">
+               <button 
+                  className={`sn-card-action-btn ${viewNote.isPinned ? 'pinned' : ''}`}
+                  onClick={() => { togglePin(viewNote); setViewNote({...viewNote, isPinned: !viewNote.isPinned}); }}
+                  title={viewNote.isPinned ? 'Unpin' : 'Pin'}
+                  style={{ color: viewNote.isPinned ? getAccentFromColor(viewNote.color) : undefined, width: 36, height: 36 }}
+                >
+                  <Pin size={18} fill={viewNote.isPinned ? getAccentFromColor(viewNote.color) : 'none'} />
+                </button>
+                <button className="sn-card-action-btn" onClick={() => { setViewNote(null); openEdit(viewNote); }} title="Edit" style={{ width: 36, height: 36 }}>
+                  <Edit3 size={18} />
+                </button>
+                <button className="sn-card-action-btn delete" onClick={() => { setViewNote(null); setDeleteConfirm(viewNote.id); }} title="Delete" style={{ width: 36, height: 36 }}>
+                  <Trash2 size={18} />
+                </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Create/Edit Modal */}
@@ -282,33 +327,18 @@ export default function StudyNotesPage() {
   );
 }
 
-function NoteCard({ note, onPin, onEdit, onDelete }: {
+function NoteCard({ note, onClick }: {
   note: Note;
-  onPin: (note: Note) => void;
-  onEdit: (note: Note) => void;
-  onDelete: (id: string) => void;
+  onClick: (note: Note) => void;
 }) {
   const accent = getAccentFromColor(note.color);
   const tags = note.tags ? note.tags.split(',').map(t => t.trim()).filter(Boolean) : [];
 
   return (
-    <div className="sn-card" style={{ background: note.color, '--accent': accent } as React.CSSProperties}>
+    <div className="sn-card" style={{ background: note.color, '--accent': accent, cursor: 'pointer' } as React.CSSProperties} onClick={() => onClick(note)}>
       <div className="sn-card-top-border" style={{ background: accent }} />
-      <div className="sn-card-actions">
-        <button
-          className={`sn-card-action-btn ${note.isPinned ? 'pinned' : ''}`}
-          onClick={() => onPin(note)}
-          title={note.isPinned ? 'Unpin' : 'Pin'}
-          style={{ color: note.isPinned ? accent : undefined }}
-        >
-          <Pin size={14} fill={note.isPinned ? accent : 'none'} />
-        </button>
-        <button className="sn-card-action-btn" onClick={() => onEdit(note)} title="Edit">
-          <Edit3 size={14} />
-        </button>
-        <button className="sn-card-action-btn delete" onClick={() => onDelete(note.id)} title="Delete">
-          <Trash2 size={14} />
-        </button>
+      <div className="sn-card-actions" style={{ padding: '12px 12px 0' }}>
+        {note.isPinned && <Pin size={14} fill={accent} color={accent} />}
       </div>
       <h3 className="sn-card-title">{note.title}</h3>
       {note.content && (

@@ -567,3 +567,41 @@
   opacity: 0.8;
   font-style: italic;
 }
+
+/* View Modal Specific Styles */
+.view-modal-title-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.view-modal-content {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+}
+
+.view-modal-content p {
+  margin-bottom: 1em;
+}
+
+.view-modal-content a {
+  color: #818cf8;
+  text-decoration: underline;
+}
+
+.view-modal-content ul,
+.view-modal-content ol {
+  padding-left: 2.2em;
+  margin-bottom: 1em;
+}
+
+.view-modal-content blockquote {
+  border-left: 3px solid #818cf8;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-style: italic;
+  background: rgba(129, 140, 248, 0.05);
+  padding: 10px 10px 10px 16px;
+  border-radius: 0 4px 4px 0;
+}

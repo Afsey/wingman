@@ -12,7 +12,6 @@ interface LoginModalProps {
 export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginModalProps) {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [phone, setPhone] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loginMethod, setLoginMethod] = useState<'password' | 'dob'>('password');
   const [dob, setDob] = useState('');
@@ -47,7 +46,7 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginMod
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ usernameOrEmail, password, phone, loginMethod, dob }),
+        body: JSON.stringify({ usernameOrEmail, password, loginMethod, dob }),
       });
 
       const data = await response.json();
@@ -115,23 +114,44 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginMod
         {loading && (
           <div className="loading-overlay">
             
-            {/* Double Animation: Walking Person + Buffering Circle */}
-            <div className="loading-animation-wrapper">
-              {/* Circular Buffer Spinner */}
-              <div className="loading-spinner-circle"></div>
-              
-              {/* Walking Person (pure CSS walk cycle) */}
-              <div className="walker-container" style={{ transform: 'scale(0.7)' }}>
-                <div className="walker-head"></div>
-                <div className="walker-torso"></div>
-                <div className="walker-arm-left"></div>
-                <div className="walker-arm-right"></div>
-                <div className="walker-leg-left"></div>
-                <div className="walker-leg-right"></div>
+            {/* From Uiverse.io by StealthWorm */}
+            <div className="loader" style={{ marginBottom: '1.5rem', transform: 'scale(0.8)' }}>
+              <div className="container">
+                <div className="carousel">
+                  <div className="love"></div>
+                  <div className="love"></div>
+                  <div className="love"></div>
+                  <div className="love"></div>
+                  <div className="love"></div>
+                  <div className="love"></div>
+                  <div className="love"></div>
+                </div> 
+              </div>
+              <div className="container">
+                <div className="carousel">
+                  <div className="death"></div>
+                  <div className="death"></div>
+                  <div className="death"></div>
+                  <div className="death"></div>
+                  <div className="death"></div>
+                  <div className="death"></div>
+                  <div className="death"></div>
+                </div> 
+              </div>
+              <div className="container">
+                <div className="carousel">
+                    <div className="robots"></div>
+                    <div className="robots"></div>
+                    <div className="robots"></div>
+                    <div className="robots"></div>
+                    <div className="robots"></div>
+                    <div className="robots"></div>
+                    <div className="robots"></div>
+                </div> 
               </div>
             </div>
 
-            <h3 className="modal-title" style={{ color: 'var(--accent-color)', fontSize: '1.25rem' }}>Analyzing identity...</h3>
+            <h3 className="login-modal-title" style={{ color: 'var(--accent-color)', fontSize: '1.25rem' }}>Analyzing identity...</h3>
             <p className="modal-subtitle" style={{ maxWidth: '280px', margin: '0.5rem auto 0' }}>
               Wingman is walking through authorization nodes. Please wait.
             </p>
@@ -139,11 +159,11 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginMod
         )}
 
         {/* Modal Header */}
-        <div className="modal-header">
-          <h2 className="modal-title">
+        <div className="login-modal-header">
+          <h2 className="login-modal-title">
             {view === 'login' ? 'Who are you?' : 'Reset Password'}
           </h2>
-          <p className="modal-subtitle">
+          <p className="login-modal-subtitle">
             {view === 'login' 
               ? 'Wingman requests credentials to unlock dashboard.' 
               : 'Enter your email to receive a secure reset link.'}
@@ -297,23 +317,6 @@ export default function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginMod
             </div>
           )}
 
-          {/* Phone Number */}
-          <div className="form-group">
-            <label className="form-label">Phone Number</label>
-            <div className="input-with-icon-wrapper">
-              <span className="input-icon">
-                <Phone size={16} />
-              </span>
-              <input
-                type="tel"
-                required
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="Phone Number"
-                className="form-input-custom"
-              />
-            </div>
-          </div>
 
           {/* Remember Me */}
           <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px', marginBottom: '8px' }}>

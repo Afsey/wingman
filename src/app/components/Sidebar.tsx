@@ -25,7 +25,8 @@ import {
   Pin,
   Pen
 } from 'lucide-react';
-import UserProfileModal from './UserProfileModal';
+import dynamic from 'next/dynamic';
+const UserProfileModal = dynamic(() => import('./UserProfileModal'), { ssr: false });
 import './Sidebar.css';
 
 const ALL_TABS = [
@@ -37,7 +38,7 @@ const ALL_TABS = [
   { name: 'Companies', path: '/dashboard/companies', icon: Building2 },
   { name: 'Social Media', path: '/dashboard/social', icon: Share2 },
   { name: 'Marketing News', path: '/dashboard/news', icon: Newspaper },
-  { name: 'Study Note', path: '/dashboard/study-notes', icon: BookOpen },
+  { name: 'Notes', path: '/dashboard/notes', icon: BookOpen },
   { name: 'Dream', path: '/dashboard/dream', icon: CloudLightning },
   { name: 'Life', path: '/dashboard/life', icon: Heart },
   { name: 'Attachments', path: '/dashboard/attachments', icon: Paperclip },

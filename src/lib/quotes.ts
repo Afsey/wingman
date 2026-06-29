@@ -36,28 +36,12 @@ export function getQuoteForTime(): Quote {
     return MOTIVATIONAL_QUOTES[0];
   }
   
-  const cacheKey = 'wingman_cached_quote';
-  const timeKey = 'wingman_cached_quote_time';
-  const cachedTime = localStorage.getItem(timeKey);
-  const cachedQuote = localStorage.getItem(cacheKey);
+  // Use epoch time to create a 14-day cycle
+  const epochDays = Math.floor(Date.now() / (1000 * 60 * 60 * 24));
+  const dayIndex = epochDays % 14;
   
-  const threeHours = 3 * 60 * 60 * 1000;
-  const now = Date.now();
+  // Make sure we have enough quotes in the array
+  const safeIndex = dayIndex % MOTIVATIONAL_QUOTES.length;
   
-  if (cachedQuote && cachedTime && (now - parseInt(cachedTime, 10) < threeHours)) {
-    try {
-      return JSON.parse(cachedQuote);
-    } catch {
-      // Fallback if parsing fails
-    }
-  }
-  
-  // Select new random quote
-  const randomIndex = Math.floor(Math.random() * MOTIVATIONAL_QUOTES.length);
-  const quote = MOTIVATIONAL_QUOTES[randomIndex];
-  
-  localStorage.setItem(cacheKey, JSON.stringify(quote));
-  localStorage.setItem(timeKey, now.toString());
-  
-  return quote;
+  return MOTIVATIONAL_QUOTES[safeIndex];
 }

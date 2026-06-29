@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface AnalogClockProps {
   timezone: string;
 }
 
-export default function AnalogClock({ timezone }: AnalogClockProps) {
+const AnalogClock = ({ timezone }: AnalogClockProps) => {
   const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -89,4 +89,6 @@ export default function AnalogClock({ timezone }: AnalogClockProps) {
       </div>
     </div>
   );
-}
+};
+
+export default React.memo(AnalogClock);

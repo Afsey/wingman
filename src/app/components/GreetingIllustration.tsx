@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface GreetingIllustrationProps {
   greeting: string;
 }
 
-export default function GreetingIllustration({ greeting }: GreetingIllustrationProps) {
+const GreetingIllustration = ({ greeting }: GreetingIllustrationProps) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -224,4 +224,6 @@ export default function GreetingIllustration({ greeting }: GreetingIllustrationP
       </>
     );
   }
-}
+};
+
+export default React.memo(GreetingIllustration);

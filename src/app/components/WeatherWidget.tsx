@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Cloud, Sun, Moon, CloudRain, CloudSnow, CloudLightning, CloudFog, Loader2 } from 'lucide-react';
 
-export default function WeatherWidget() {
+const WeatherWidget = () => {
   const [mounted, setMounted] = useState(false);
   const [currentDate, setCurrentDate] = useState('');
   const [weather, setWeather] = useState<{
@@ -103,4 +103,6 @@ export default function WeatherWidget() {
       </div>
     </div>
   );
-}
+};
+
+export default React.memo(WeatherWidget);

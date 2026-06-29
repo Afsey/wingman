@@ -3,7 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import ThemeSelector from './ThemeSelector';
 import HeaderClock from './HeaderClock';
-import UserProfileModal from './UserProfileModal';
+import dynamic from 'next/dynamic';
+const UserProfileModal = dynamic(() => import('./UserProfileModal'), { ssr: false });
 import { User, Sparkles, Bell } from 'lucide-react';
 import './Header.css';
 

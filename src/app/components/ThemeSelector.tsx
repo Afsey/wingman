@@ -33,6 +33,16 @@ const COLOR_PRESETS = [
   { id: 'white-blue', name: 'White & Blue', primary: '#2563eb' },
   { id: 'white-violet', name: 'White & Violet', primary: '#7e22ce' },
   { id: 'white-orange', name: 'White & Orange', primary: '#ea580c' },
+  { id: 'cyberpunk', name: 'Cyberpunk Neon', primary: '#00ffff' },
+  { id: 'emerald', name: 'Emerald Glow', primary: '#10b981' },
+  { id: 'peach', name: 'Soft Peach', primary: '#f29a76' },
+  { id: 'sapphire', name: 'Midnight Sapphire', primary: '#3b82f6' },
+  { id: 'ruby', name: 'Ruby Red', primary: '#e01541' },
+  { id: 'electric-purple', name: 'Electric Purple', primary: '#9000ff' },
+  { id: 'rust', name: 'Autumn Rust', primary: '#bf5b1a' },
+  { id: 'teal', name: 'Oceanic Teal', primary: '#14b8a6' },
+  { id: 'magenta', name: 'Sunset Magenta', primary: '#d927a8' },
+  { id: 'silver', name: 'Lunar Silver', primary: '#737373' },
 ];
 
 export default function ThemeSelector() {

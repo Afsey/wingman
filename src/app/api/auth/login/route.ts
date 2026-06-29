@@ -5,11 +5,11 @@ import { db, verifyPassword } from '@/lib/db';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { usernameOrEmail, password, phone, loginMethod, dob } = body;
+    const { usernameOrEmail, password, loginMethod, dob } = body;
 
-    if (!usernameOrEmail || !phone) {
+    if (!usernameOrEmail) {
       return NextResponse.json(
-        { error: 'Please fill Username/Email and Phone Number.' },
+        { error: 'Please fill Username/Email.' },
         { status: 400 }
       );
     }
@@ -38,14 +38,7 @@ export async function POST(request: Request) {
       );
     }
 
-    // Verify phone number (remove spacing/plus to be slightly flexible, but match strictly if required)
-    const cleanPhone = (p: string) => p.replace(/[\s\-]/g, '');
-    if (cleanPhone(user.phone) !== cleanPhone(phone)) {
-      return NextResponse.json(
-        { error: 'Phone number does not match registered user.' },
-        { status: 401 }
-      );
-    }
+
 
     // Verify authentication factor
     if (loginMethod === 'password') {
