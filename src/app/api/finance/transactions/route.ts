@@ -1,27 +1,33 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { db } from '@/lib/db';
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
     const accountId = searchParams.get('accountId');
+    const limit = searchParams.get('limit');
+
+    const prisma = db.prismaClient;
 
     let whereClause: any = {};
     if (userId) whereClause.userId = userId;
     if (accountId) whereClause.accountId = accountId;
 
-    const transactions = await prisma.financeTransaction.findMany({
+    let query: any = {
       where: whereClause,
+      orderBy: { date: 'desc' },
       include: {
         account: true,
         category: true,
       },
-      orderBy: { date: 'desc' },
-    });
+    };
 
+    if (limit) {
+      query.take = parseInt(limit, 10);
+    }
+
+    const transactions = await prisma.financeTransaction.findMany(query);
     return NextResponse.json(transactions);
   } catch (error) {
     console.error('Error fetching transactions:', error);
@@ -31,6 +37,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const prisma = db.prismaClient;
     const body = await request.json();
     const { date, amount, type, misc, accountId, categoryId, userId } = body;
 
@@ -41,7 +48,7 @@ export async function POST(request: Request) {
     const parsedAmount = parseFloat(amount);
 
     // Use a transaction to create the record and update the account balance
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx: any) => {
       const newTx = await tx.financeTransaction.create({
         data: {
           date: new Date(date || new Date()),
@@ -64,8 +71,6 @@ export async function POST(request: Request) {
         let newBalance = account.balance;
         
         // Basic logic: Income/Refund increases balance, Expense/Payment decreases it
-        // For credit cards, balance might represent what you owe, so this logic could be inverted
-        // but typically a positive balance is cash on hand.
         if (type === 'Income' || type === 'Refund' || type === 'Transfer In') {
           newBalance += parsedAmount;
         } else if (type === 'Expense' || type === 'Payment' || type === 'Transfer Out') {

@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { db } from '@/lib/db';
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId');
+
+    const prisma = db.prismaClient;
 
     let accounts;
     if (userId) {
@@ -29,6 +29,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const prisma = db.prismaClient;
     const body = await request.json();
     const { name, logoUrl, accountType, creditLimit, userId } = body;
 
