@@ -731,17 +731,43 @@ class JsonDatabaseDriver {
   }
 }
 
+import { Pool } from 'pg';
+import { PrismaPg } from '@prisma/adapter-pg';
+
+// Singleton Prisma client for PostgreSQL
+let _prismaInstance: PrismaClient | null = null;
+
+function getPrismaClient(): PrismaClient {
+  if (!_prismaInstance) {
+    const connectionString = process.env.DATABASE_URL;
+    if (!connectionString) {
+      throw new Error('DATABASE_URL is not set. Cannot create Prisma client.');
+    }
+    const pool = new Pool({ connectionString });
+    const adapter = new PrismaPg(pool);
+    _prismaInstance = new PrismaClient({ adapter });
+  }
+  return _prismaInstance;
+}
+
 // PostgreSQL Prisma Driver implementation
 class PrismaDatabaseDriver {
-  private prisma: PrismaClient;
+  private _prisma: PrismaClient | null = null;
 
   constructor() {
-    this.prisma = new PrismaClient();
+    // Don't initialize eagerly — wait for first use so build time doesn't crash
     this.seedAdmin();
   }
 
   get prismaClient() {
-    return this.prisma;
+    if (!this._prisma) {
+      this._prisma = getPrismaClient();
+    }
+    return this._prisma;
+  }
+
+  private get prisma() {
+    return this.prismaClient;
   }
 
   private async seedAdmin() {
