@@ -213,6 +213,11 @@ class JsonDatabaseDriver {
     this.seedAdmin();
   }
 
+  // Stub — JsonDatabaseDriver doesn't support Prisma models (Finance etc.)
+  get prismaClient(): never {
+    throw new Error('Finance features require a PostgreSQL database. Please configure DATABASE_URL.');
+  }
+
   private load() {
     try {
       if (fs.existsSync(this.filePath)) {
