@@ -1,0 +1,433 @@
+.finance-container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+.finance-header {
+  margin-bottom: 2rem;
+}
+
+.finance-header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.finance-section {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.finance-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.finance-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Account Card Styles */
+.account-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.account-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.account-logo-container {
+  width: 100%;
+  height: 120px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.account-logo {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.account-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.account-balance {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+}
+
+.account-utilization {
+  font-size: 0.85rem;
+  color: #10b981;
+}
+
+.account-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid var(--border-color);
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-expense {
+  color: #ef4444;
+}
+.btn-expense:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+}
+
+.btn-payment {
+  color: #3b82f6;
+}
+.btn-payment:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+  border-color: #3b82f6;
+}
+
+.btn-income {
+  color: #10b981;
+}
+.btn-income:hover {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-color: #10b981;
+}
+
+/* Category Card Styles */
+.category-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.category-budget {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.progress-bar-container {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.progress-segment {
+  height: 12px;
+  flex: 1;
+  background-color: var(--border-color);
+  border-radius: 2px;
+}
+
+.progress-segment.filled {
+  background-color: #10b981;
+}
+
+.progress-segment.warning {
+  background-color: #f59e0b;
+}
+
+.progress-segment.danger {
+  background-color: #ef4444;
+}
+
+.category-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #10b981;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981;
+}
+
+.status-dot.warning { background-color: #f59e0b; }
+.status-dot.danger { background-color: #ef4444; }
+
+/* Transaction Lists */
+.transaction-list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.list-box {
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.list-box.expenses { background-color: rgba(107, 114, 128, 0.1); border: 1px solid rgba(255,255,255,0.05); }
+.list-box.income { background-color: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.1); }
+.list-box.payments { background-color: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.1); }
+
+.list-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.finance-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.finance-table th {
+  text-align: left;
+  padding: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.finance-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.empty-state {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.btn-new-page {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+.btn-new-page:hover {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.primary-btn {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.primary-btn:hover {
+  background-color: #2563eb;
+}
+
+/* Modal Shared Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  background-color: #1e1e1e; /* Notion dark style */
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header-nav {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+}
+.icon-btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--text-primary);
+}
+
+/* Notion Form Styles */
+.notion-page-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  margin: 1.5rem 2rem;
+}
+
+.notion-form {
+  padding: 0 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 140px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.form-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  padding: 0.25rem 0;
+}
+.form-input:focus {
+  outline: none;
+  border-bottom: 1px solid var(--accent-color);
+}
+.form-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+/* Account Detailed Modal Specific */
+.account-hero {
+  background-color: #1a4b9c; /* HDFC Blue example */
+  height: 140px;
+  position: relative;
+}
+.account-hero-logo {
+  position: absolute;
+  bottom: -30px;
+  left: 2rem;
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.account-hero-logo img {
+  width: 80%;
+}
+.account-detail-title {
+  margin: 3rem 2rem 1rem 2rem;
+  font-size: 2rem;
+  font-weight: 800;
+}
+.account-detail-balance {
+  margin: 0 2rem 2rem 2rem;
+  font-size: 1.75rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+}

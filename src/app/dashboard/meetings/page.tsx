@@ -149,7 +149,17 @@ export default function MeetingsPage() {
     try {
       const res = await fetch(`/api/meetings?_t=${Date.now()}`);
       const data = await res.json();
-      if (Array.isArray(data)) setMeetings(data);
+      
+      if (data.googleSyncError) {
+        setHasGoogleCalendar(false);
+        alert("Google Calendar sync failed: Your token has expired. Please click 'Connect Google Calendar' again to re-authenticate.");
+      }
+
+      if (data.meetings && Array.isArray(data.meetings)) {
+        setMeetings(data.meetings);
+      } else if (Array.isArray(data)) {
+        setMeetings(data);
+      }
     } catch (e) {
       console.error('Error fetching meetings:', e);
     } finally {

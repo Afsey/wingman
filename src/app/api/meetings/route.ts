@@ -14,6 +14,7 @@ export async function GET(req: NextRequest) {
     const user = await db.getUserByEmail(adminEmail);
     
     let allMeetings = [...meetings];
+    let googleSyncError = false;
 
     if (user && user.googleAccessToken) {
       try {
@@ -51,13 +52,14 @@ export async function GET(req: NextRequest) {
         allMeetings = [...allMeetings, ...mappedEvents];
       } catch (gcalError) {
         console.error('Failed to fetch Google Calendar events:', gcalError);
+        googleSyncError = true;
         // Continue and just return local meetings if Google sync fails
       }
     }
 
     // Sort by startTime asc
     const sorted = allMeetings.sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
-    return NextResponse.json(sorted);
+    return NextResponse.json({ meetings: sorted, googleSyncError });
   } catch (error) {
     console.error('Error fetching meetings:', error);
     return NextResponse.json({ error: 'Failed to fetch meetings' }, { status: 500 });

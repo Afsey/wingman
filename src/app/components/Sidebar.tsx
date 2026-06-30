@@ -23,7 +23,8 @@ import {
   LogOut,
   PinOff,
   Pin,
-  Pen
+  Pen,
+  Wallet
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 const UserProfileModal = dynamic(() => import('./UserProfileModal'), { ssr: false });
@@ -39,6 +40,7 @@ const ALL_TABS = [
   { name: 'Social Media', path: '/dashboard/social', icon: Share2 },
   { name: 'Marketing News', path: '/dashboard/news', icon: Newspaper },
   { name: 'Notes', path: '/dashboard/notes', icon: BookOpen },
+  { name: 'Finance', path: '/dashboard/finance', icon: Wallet },
   { name: 'Dream', path: '/dashboard/dream', icon: CloudLightning },
   { name: 'Life', path: '/dashboard/life', icon: Heart },
   { name: 'Attachments', path: '/dashboard/attachments', icon: Paperclip },

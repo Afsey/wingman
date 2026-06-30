@@ -150,3 +150,42 @@ model Attachment {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
+
+model FinanceAccount {
+  id          String   @id @default(uuid())
+  name        String
+  logoUrl     String?
+  accountType String   @default("Savings Account") // e.g., "Savings Account", "Credit Card"
+  balance     Float    @default(0.0)
+  creditLimit Float?
+  userId      String?
+  transactions FinanceTransaction[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model FinanceCategory {
+  id          String   @id @default(uuid())
+  name        String
+  icon        String?
+  budget      Float    @default(0.0)
+  userId      String?
+  transactions FinanceTransaction[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model FinanceTransaction {
+  id          String   @id @default(uuid())
+  date        DateTime
+  amount      Float
+  type        String   // "Expense", "Income", "Payment", "Refund"
+  misc        String?
+  accountId   String
+  account     FinanceAccount @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  categoryId  String?
+  category    FinanceCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  userId      String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
