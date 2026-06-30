@@ -731,19 +731,12 @@ class JsonDatabaseDriver {
   }
 }
 
-import { Pool } from 'pg';
-import { PrismaPg } from '@prisma/adapter-pg';
-
 // PostgreSQL Prisma Driver implementation
 class PrismaDatabaseDriver {
   private prisma: PrismaClient;
 
   constructor() {
-    const connectionString = process.env.DATABASE_URL;
-    const pool = new Pool({ connectionString });
-    const adapter = new PrismaPg(pool);
-    
-    this.prisma = new PrismaClient({ adapter });
+    this.prisma = new PrismaClient();
     this.seedAdmin();
   }
 
