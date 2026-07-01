@@ -18,7 +18,7 @@ export interface User {
   role: string;
   googleAccessToken?: string | null;
   googleRefreshToken?: string | null;
-  googleTokenExpiry?: bigint | null;
+  googleTokenExpiry?: number | null;
   createdAt: string;
   updatedAt: string;
 }
@@ -813,7 +813,7 @@ class PrismaDatabaseDriver {
       role: dbUser.role,
       googleAccessToken: dbUser.googleAccessToken,
       googleRefreshToken: dbUser.googleRefreshToken,
-      googleTokenExpiry: dbUser.googleTokenExpiry,
+      googleTokenExpiry: dbUser.googleTokenExpiry ? Number(dbUser.googleTokenExpiry) : null,
       createdAt: dbUser.createdAt.toISOString(),
       updatedAt: dbUser.updatedAt.toISOString(),
     };
@@ -871,7 +871,7 @@ class PrismaDatabaseDriver {
 
   async getAllUsers(): Promise<User[]> {
     const list = await this.prisma.user.findMany();
-    return list.map(this.mapUser);
+    return list.map(u => this.mapUser(u));
   }
 
   async deleteUser(id: string): Promise<boolean> {
